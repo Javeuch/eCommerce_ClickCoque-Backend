@@ -1,0 +1,10 @@
+INSERT INTO color VALUES (1, 'Blanc');
+INSERT INTO color VALUES (2, 'Noir');
+INSERT INTO color VALUES (3, 'Bleu');
+INSERT INTO color VALUES (4, 'Rouge');
+INSERT INTO color VALUES (5, 'Marron');
+INSERT INTO color VALUES (6, 'Gris');
+INSERT INTO color VALUES (7, 'Vert');
+INSERT INTO color VALUES (8, 'Jaune');
+INSERT INTO color VALUES (9, 'Rose');
+INSERT INTO color VALUES (10, 'Violet');

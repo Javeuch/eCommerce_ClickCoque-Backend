@@ -1,0 +1,13 @@
+insert into product_color (id_color, id_product) values (9, 1);
+insert into product_color (id_color, id_product) values (3, 2);
+insert into product_color (id_color, id_product) values (3, 3);
+insert into product_color (id_color, id_product) values (3, 4);
+insert into product_color (id_color, id_product) values (2, 5);
+insert into product_color (id_color, id_product) values (2, 6);
+insert into product_color (id_color, id_product) values (1, 7);
+insert into product_color (id_color, id_product) values (7, 8);
+insert into product_color (id_color, id_product) values (5, 9);
+insert into product_color (id_color, id_product) values (9, 10);
+insert into product_color (id_color, id_product) values (7, 11);
+insert into product_color (id_color, id_product) values (1, 12);
+insert into product_color (id_color, id_product) values (9, 13);

@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/ecommerce
+    username: postgres
+    password: postgres
+    initialization-mode: always
+    data: "classpath*:scripts_sql/status.sql, classpath*:scripts_sql/colors.sql, classpath*:scripts_sql/addresses.sql,
+          classpath*:scripts_sql/tags.sql, classpath*:scripts_sql/categories.sql, classpath*:scripts_sql/brands.sql, classpath*:scripts_sql/roles.sql,
+          classpath*:scripts_sql/products.sql, classpath*:scripts_sql/photos_products.sql, classpath*:scripts_sql/accounts.sql,
+          classpath*:scripts_sql/commands.sql, classpath*:scripts_sql/product_color.sql, classpath*:scripts_sql/product_tag.sql,
+          classpath*:scripts_sql/notes.sql"
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    defer-datasource-initialization: true
+    show-sql: true
+  jackson:
+    date-format: dd-MM-yyyy
+    time-zone: Europe/Paris
+  logging:
+    file:
+      name: log/app-web.log
+    level:
+      fr.insy2s.ecommerce: trace
+      org.hibernate.SQL: debug
+
+    mail:
+      host: localhost
+      port: 1025
+      username:
+      password:
+
+      properties:
+        mail:
+          smtp:
+            ssl:
+              trust: "*"
+            auth: true
+            starttls:
+              enable: true
+            connectiontimeout: 5000
+            timeout: 3000
+            writetimeout: 5000
