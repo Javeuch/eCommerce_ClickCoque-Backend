@@ -3,7 +3,7 @@ package fr.insy2s.commerce.services.impl;
 import fr.insy2s.commerce.dtos.RoleDto;
 import fr.insy2s.commerce.models.Role;
 import fr.insy2s.commerce.repositories.IRoleRepository;
-import fr.insy2s.commerce.security.ApplicationUserRole;
+//import fr.insy2s.commerce.security.ApplicationUserRole;
 import fr.insy2s.commerce.services.IRoleService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -32,8 +32,6 @@ public class RoleServiceImpl implements IRoleService {
         Role role = roleRepository.findById(id).orElse(null);
         return modelMapper.map(role, RoleDto.class);
     }
-
-
 
 
     @Override

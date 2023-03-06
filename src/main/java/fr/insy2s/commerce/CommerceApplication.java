@@ -19,29 +19,30 @@ public class CommerceApplication {
     }
 
     /**
-     * chatGPT: configuration for Cors
+     * Configuration for Cors
      */
 
-//    @Configuration
-//    @EnableWebSecurity
-//    public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//        @Override
-//        protected void configure(HttpSecurity http) throws Exception {
-//            http.cors().and().csrf().disable();
-//        }
-//
-//        @Bean
-//        public CorsConfigurationSource corsConfigurationSource() {
-//            CorsConfiguration configuration = new CorsConfiguration();
-//            configuration.addAllowedOrigin("*");
-//            configuration.addAllowedMethod("*");
-//            configuration.addAllowedHeader("*");
-//            configuration.setAllowCredentials(true);
-//            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//            source.registerCorsConfiguration("/**", configuration);
-//            return source;
-//        }
-//    }
+    @Configuration
+    @EnableWebSecurity
+    public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.cors().and().csrf().disable();
+        }
+
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+            CorsConfiguration configuration = new CorsConfiguration();
+            configuration.addAllowedOrigin("http://localhost:3000");
+            configuration.addAllowedMethod("GET");
+            configuration.addAllowedMethod("POST");
+            configuration.addAllowedHeader("*");
+            configuration.setAllowCredentials(true);
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/api/**", configuration);
+            return source;
+        }
+    }
 
 }

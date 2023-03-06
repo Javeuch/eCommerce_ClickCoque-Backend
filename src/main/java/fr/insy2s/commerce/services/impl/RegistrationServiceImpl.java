@@ -26,15 +26,13 @@ public class RegistrationServiceImpl implements IRegistrationService {
     private final IAccountService accountService;
     private final EmailValidator emailValidator;
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     private final RoleServiceImpl roleService;
 
-    private final IConfirmationTokenService confirmationTokenService;
+//    private final IConfirmationTokenService confirmationTokenService;
 
     private final IEmailService emailService;
-
-
 
 
     @Override
@@ -44,42 +42,47 @@ public class RegistrationServiceImpl implements IRegistrationService {
 
         if (!isValidEmail) {
             throw new IllegalStateException("email not valid");
-            }
-        accountDto.setRole(new RoleDto(3,"client"));
-            String token = accountService.registerAccount(accountDto);
-
-            String link = "http://localhost:8080/api/registration/confirm?token=" + token;
-            emailService.send(
-                    accountDto.getEmail(),
-                    buildEmail(accountDto.getFirstName(), link));
-
-            return "Account created, please check your mailbox for validate your account";
         }
+        accountDto.setRole(new RoleDto(3, "client"));
+        String token = accountService.registerAccount(accountDto);
 
+        String link = "http://localhost:8080/api/registration/confirm?token=" + token;
+        emailService.send(
+                accountDto.getEmail(),
+                buildEmail(accountDto.getFirstName(), link));
 
-
-    @Transactional
-    public String confirmToken(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService
-                .getToken(token)
-                .orElseThrow(() ->
-                        new IllegalStateException("token not found"));
-
-        if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
-        }
-
-        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-
-        if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
-        }
-
-        confirmationTokenService.setConfirmedAt(token);
-        accountService.enableAccount(
-                confirmationToken.getAccount().getEmail());
-        return "Account validated";
+        return "Account created, please check your mailbox for validate your account";
     }
+
+    // Implémentation rajoutée par l'IDE, j'essaie de debugger...
+    @Override
+    public String confirmToken(String token) {
+        return null;
+    }
+
+
+    //    @Transactional
+//    public String confirmToken(String token) {
+//        ConfirmationToken confirmationToken = confirmationTokenService
+//                .getToken(token)
+//                .orElseThrow(() ->
+//                        new IllegalStateException("token not found"));
+//
+//        if (confirmationToken.getConfirmedAt() != null) {
+//            throw new IllegalStateException("email already confirmed");
+//        }
+//
+//        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
+//
+//        if (expiredAt.isBefore(LocalDateTime.now())) {
+//            throw new IllegalStateException("token expired");
+//        }
+//
+//        confirmationTokenService.setConfirmedAt(token);
+//        accountService.enableAccount(
+//                confirmationToken.getAccount().getEmail());
+//        return "Account validated";
+//    }
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +

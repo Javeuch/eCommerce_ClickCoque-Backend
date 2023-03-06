@@ -2,7 +2,7 @@ package fr.insy2s.commerce.services;
 
 import fr.insy2s.commerce.dtos.RoleDto;
 import fr.insy2s.commerce.models.Role;
-import fr.insy2s.commerce.security.ApplicationUserRole;
+//import fr.insy2s.commerce.security.ApplicationUserRole;
 
 import java.util.List;
 

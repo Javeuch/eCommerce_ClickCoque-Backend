@@ -27,18 +27,16 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class AccountServiceImpl implements IAccountService,UserDetailsService {
-
+public class AccountServiceImpl implements IAccountService {
 
 
     private final IAccountRepository accountRepository;
     private final IRoleService roleService;
     private final ModelMapper modelMapper;
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
-    private final IConfirmationTokenService confirmationTokenService;
-
+//    private final IConfirmationTokenService confirmationTokenService;
 
 
     @Override
@@ -46,8 +44,9 @@ public class AccountServiceImpl implements IAccountService,UserDetailsService {
         Account account = accountRepository.findById(id).orElse(null);
         return modelMapper.map(account, AccountDto.class);
     }
+
     @Override
-    public AccountDto getAccount(String username){
+    public AccountDto getAccount(String username) {
         Account account = accountRepository.findByUsername(username);
         return modelMapper.map(account, AccountDto.class);
     }
@@ -95,29 +94,29 @@ public class AccountServiceImpl implements IAccountService,UserDetailsService {
 
             throw new IllegalStateException("email already exists");
         }
-        Account account = modelMapper.map(accountDto,Account.class);
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-
-
+        Account account = modelMapper.map(accountDto, Account.class);
+//        account.setPassword(passwordEncoder.encode(account.getPassword()));
 
 
         accountRepository.save(account);
 
-        String token = UUID.randomUUID().toString();
-        ConfirmationToken confirmationToken = new ConfirmationToken(
-
-                token,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
-                account
-        );
-
-        confirmationTokenService.saveConfirmationToken(
-                confirmationToken);
-
-        return token;
+//        String token = UUID.randomUUID().toString();
+//        ConfirmationToken confirmationToken = new ConfirmationToken(
+//
+//                token,
+//                LocalDateTime.now(),
+//                LocalDateTime.now().plusMinutes(15),
+//                account
+//        );
+//
+//        confirmationTokenService.saveConfirmationToken(
+//                confirmationToken);
+//
+//        return token;
+        return null;
 
     }
+
     @Override
     public int enableAccount(String email) {
         return accountRepository.enableAccount(email);
@@ -130,25 +129,26 @@ public class AccountServiceImpl implements IAccountService,UserDetailsService {
     }
 
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findByUsername(username);
-        if(account == null) {
-            log.error("User not found in the database");
-            throw new UsernameNotFoundException("User not found in the database");
-        }else {
-            log.info("User found in the database: {}",username);
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Account account = accountRepository.findByUsername(username);
+//        if (account == null) {
+//            log.error("User not found in the database");
+//            throw new UsernameNotFoundException("User not found in the database");
+//        } else {
+//            log.info("User found in the database: {}", username);
+//
+//        }
+//        Collection<SimpleGrantedAuthority>authorities = new ArrayList<>();
+//        authorities.add(new SimpleGrantedAuthority(account.getRole().getLabel()));
+//        return new org.springframework.security.core.userdetails.User(account.getUsername(),account.getPassword(),authorities);
+//    }
 
-        }
-        Collection<SimpleGrantedAuthority>authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(account.getRole().getLabel()));
-        return new org.springframework.security.core.userdetails.User(account.getUsername(),account.getPassword(),authorities);
-    }
     @Override
-    public AccountDto updateAccount(AccountDto accountDto){
+    public AccountDto updateAccount(AccountDto accountDto) {
         //System.out.println(accountDto);
         Optional<Account> account = accountRepository.findByEmail(accountDto.getEmail());
-        if (account.isPresent()){
+        if (account.isPresent()) {
             account.get().setFirstName(accountDto.getFirstName());
             account.get().setLastName(accountDto.getLastName());
             account.get().getAddress().setNumber(accountDto.getAddress().getNumber());
